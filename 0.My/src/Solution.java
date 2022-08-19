@@ -1,37 +1,27 @@
-
-
-import java.util.HashMap;
-import java.util.regex.Pattern;
-
-/* 
-Двоично-шестнадцатеричный конвертер
-*/
-
 public class Solution {
-    private static ThreadLocal<String> threadLocal = new ThreadLocal<>();
+    public static char[][] chars = {
+            {'a', 'b', 'c', 'd', 'e'},
+            {'j', 'h', 'i', 'j', 'k'},
+            {'m', 'n', 'o', 'p', 'q'},
+            {'s', 't', 'u', 'v', 'w'}};
 
-    public static void main(String[] args) throws InterruptedException {
-        class MyRunnable implements Runnable {
+    public static void main(String[] args) {
+        printArray();
+        for(int i=1; i<chars.length-1; i++)
+            for(int j=1; j<=chars.length;j++)
+                chars[i][j]='-';
 
-            @Override
-            public void run() {
-                String name = Thread.currentThread().getName();
-                System.out.println(name + " first threadLocal: "
-                        + threadLocal.get());
-                threadLocal.set(name + " thread value");
-                System.out.println(name + " end threadLocal: "
-                        + threadLocal.get());
+
+        printArray();
+    }
+
+    private static void printArray() {
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = 0; j < chars[i].length; j++) {
+                System.out.print(chars[i][j] + " ");
             }
-        };
-
-        threadLocal.set("From main thread");
-        Thread thread1 = new Thread(new MyRunnable(), "first_thread");
-        thread1.start();
-        Thread thread2 = new Thread(new MyRunnable(), "second_thread");
-        thread2.start();
-        thread1.join();
-        thread2.join();
-
-        System.out.println("fromMainThread: " + threadLocal.get());
+            System.out.println();
+        }
+        System.out.println();
     }
 }
